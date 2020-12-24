@@ -205,11 +205,21 @@ void gauss1(float **a,int n) {
     float del,ccc;
     for (int k=0; k<n; k++){
             if(a[k][k]==0){
+                cout<<"***";
+                for (int ii=k+1; ii<n; ii++)
+                    for (int jj=0; jj<n*2; jj++)
+                        a[k][jj]+=a[ii][jj];
+            }
+    }
+    for (int k=0; k<n; k++){
+            if(a[k][k]==0){
+                cout<<"***";
                 for (int ii=k+1; ii<n; ii++)
                     for (int jj=0; jj<n*2; jj++)
                         a[k][jj]+=a[ii][jj];
             }
             del=a[k][k];
+        cout<<"del= "<<del;
             for (int j=0; j<n*2; j++) a[k][j]/=del;
 
         for (int lm=k+1; lm<n; lm++){
