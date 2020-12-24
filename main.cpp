@@ -3,9 +3,9 @@
 using namespace std;
 
 
-//9.1
+//9.1 +
 void t1(){
-    int m, n, count=0;
+    int m, n;
     cout<<"Введите размеры двумерного массива(Количество строк и столбцов): ";
     cin >> m >> n;
     int a2[m][n];
@@ -19,12 +19,10 @@ void t1(){
     }
     cout<< endl;
     //преобразование в одномерный массив
-    for (int i=0; i<m; i++){
-        for (int j=0; j<n; j++){
-            a[count]=a2[i][j];
-            count++;
-        }
-    }
+    for (int i=0; i<m; i++)
+    for (int j=0; j<n; j++)
+    a[i*n+j]=a2[i][j];
+ 
     cout<<"Полученный одномерный массив: ";
     for (int i=0; i<m*n; i++) cout << a[i] << " ";
     cout << "\n\n";
@@ -175,21 +173,68 @@ void t4(){
 
 
 void gauss(float **a,int n) {
-    float del;
+    float del,ccc;
     for (int k=0; k<n; k++){
-        for (int i=k; i<n; i++){
-            del=a[i][k];
-            for (int j=0; j<n+1; j++) a[i][j]/=del;
-        }
-        for (int lm=k+1; lm<n; lm++)
+            if(a[k][k]==0){
+                for (int ii=k+1; ii<n; ii++)
+                    for (int jj=0; jj<n+1; jj++)
+                        a[k][jj]+=a[ii][jj];
+            }
+            del=a[k][k];
+            for (int j=0; j<n+1; j++) a[k][j]/=del;
+
+        for (int lm=k+1; lm<n; lm++){
+            ccc=a[lm][k]/a[k][k];
         for (int ld=0; ld<n+1; ld++){
-            a[lm][ld]-=a[k][ld];
+            a[lm][ld]-=a[k][ld]*ccc;
         }
     }
+        for (int ii=0; ii<n; ii++){
+            for (int jj=0; jj<n+1; jj++)
+            cout << a[ii][jj] << " ";
+            cout<<endl;
+        }
+}
 }
 
 
+
+
+
 void gauss1(float **a,int n) {
+    float del,ccc;
+    for (int k=0; k<n; k++){
+            if(a[k][k]==0){
+                for (int ii=k+1; ii<n; ii++)
+                    for (int jj=0; jj<n*2; jj++)
+                        a[k][jj]+=a[ii][jj];
+            }
+            del=a[k][k];
+            for (int j=0; j<n*2; j++) a[k][j]/=del;
+
+        for (int lm=k+1; lm<n; lm++){
+            ccc=a[lm][k]/a[k][k];
+        for (int ld=0; ld<n*2; ld++){
+            a[lm][ld]-=a[k][ld]*ccc;
+        }
+    }
+        for (int ii=0; ii<n; ii++){
+            for (int jj=0; jj<n*2; jj++)
+            cout << a[ii][jj] << " ";
+            cout<<endl;
+        }
+}
+}
+
+
+
+
+
+
+
+
+
+/*void gauss1(float **a,int n) {
     float del;
     for (int k=0; k<n; k++){
         for (int i=k; i<n; i++){
@@ -201,7 +246,7 @@ void gauss1(float **a,int n) {
             a[lm][ld]-=a[k][ld];
         }
     }
-}
+}*/
 
 void gauss2(float **a,int n) {
     float del;
@@ -353,7 +398,7 @@ int main(){
         if (key==4) t4();
         if (key==5) t5();
         if (key==6) t6();
-        if (key==7) t7();
+        if (key==7) cout<<"Не сделал";
     }
     return 0;
 }
